@@ -7,7 +7,7 @@ class FenwickMaxTree {
 
 public:
     FenwickMaxTree(size_t size) {
-        values = std::vector<int>(size+1);
+        values = std::vector<int>(size+1, 0);
     }
 
     int getMax(size_t i) {
