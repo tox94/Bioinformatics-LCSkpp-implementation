@@ -1,6 +1,6 @@
-#ifndef LCSKPP_H_
-#define LCSKPP_H_
+#ifndef _LCSKPP_H_
+#define _LCSKPP_H_
 
 
 
-#endif // LCSKPP_H_
+#endif // _LCSKPP_H_
