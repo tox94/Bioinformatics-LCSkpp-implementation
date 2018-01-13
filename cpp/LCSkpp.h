@@ -10,7 +10,9 @@
 
 std::unordered_map<char,uint8_t> alphabet(std::string& a, std::string& b);
 
-std::vector<std::tuple<int,int,int>>* get_events(std::string& a, std::string& b, int k);
+std::vector<std::tuple<int,int,bool>>* get_events(
+            std::string& a, std::string& b, int k,
+            std::map<pair<int,int>,int>& matchPairs);
 
 #endif // _LCSKPP_H_
 

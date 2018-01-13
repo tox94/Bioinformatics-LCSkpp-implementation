@@ -25,7 +25,9 @@ std::unordered_map<char,uint8_t> alphabet(std::string& a, std::string& b) {
     return ret;
 }
 
-std::vector<std::tuple<int,int,int>>* get_events(std::string& a, std::string& b, int k) {
+std::vector<std::tuple<int,int,bool>>* get_events(
+                                        std::string& a, std::string& b, int k, 
+                                        std::map<pair<int,int>,int>& matchPairs) {
     
     std::unordered_map<char,uint8_t> code=alphabet(a,b);
     int alphabet_size = code.size();
@@ -55,23 +57,61 @@ std::vector<std::tuple<int,int,int>>* get_events(std::string& a, std::string& b,
         hash %= mod;                            //calculating prefix of the first substring
     }
 
-     auto events = new std::vector<std::tuple<int,int,int>>();
+    auto events = new std::vector<std::tuple<int,int,bool>>();
 
-     for(int i=0; i<k-1; i++) {
+    int count = 0;
+    for(int i=0; i<k-1; i++) {
         hash = hash*alphabet_size + code[b[i]];
         hash %= mod;
 
         auto a_indexes = a_index.equal_range(hash);
         int j = i -(k-1);
         for(auto it=a_indexes.first; it!=a_indexes.second; it++) {
-            events->push_back(std::make_tuple(it->second+k, j+k, 0)); //end of substring
-            events->push_back(std::make_tuple(it->second,j,1));       //start of substring
+            events->push_back(std::make_tuple(it->second+k, j+k, false)); //end of substring
+            events->push_back(std::make_tuple(it->second,j,true));       //start of substring
+            matchPairs[{it->second,j}]=count++;
         }
     }
     
     std::sort(events->begin(), events->end());
 
+
     return events;
+}
+
+int LCSkpp(std::string& a, std::string& b, const int k) {
+    std::map<pair<int,int>,int> matchPairs;
+    auto events = get_events(a,b, k, matchPairs);
+    
+    int n = b.size();
+    FenwickMaxTree dpColMax(n);
+
+    vector<int> dp(matchPairs.size());
+
+    int maxDp = 0;
+
+    for(auto event=events.begin(); event!=events.end(); event++) {
+        int i = event->get(0);
+        int j = event->get(1);
+        bool start = event->get(2);
+
+
+        if (start) {
+        
+            dp[matchPairs[{i,j}]] = dpColMax.getMax(j) + k;
+        
+        } else {
+            if (matchPairs.find({i-1,j-1}) != matchPairs.end()) {
+                dp[matchPairs[{i,j}]] = std::max({ dp[matchPairs[{i-1,j-1}]]+1, dp[matchPairs[{i, j}]] })
+            }    
+
+            dpColMax.setValue(j,dp[matchPairs[{i,j}]]);
+
+            maxDp = std::max({dp[matchPairs[{i,j}]], maxDp});
+        }
+    }
+
+    return maxDp; 
 }
 
 
