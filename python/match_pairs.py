@@ -24,7 +24,9 @@ def r_hash(h,x,y,b,k):
 
 def MatchPairs(string_1,string_2,k):
     b,characters=setup_characters(string_1,string_2)
+
     table={}
+
     h=r_hash(0,0,characters[string_1[0]],b,k)
     for i in range(1,k):
         h=r_hash(h,0,characters[string_1[i]],b,k)
@@ -37,9 +39,13 @@ def MatchPairs(string_1,string_2,k):
     h=r_hash(0,0,characters[string_2[0]],b,k)
     for i in range(1,k):
         h=r_hash(h,0,characters[string_2[i]],b,k)
-    pairs.extend([(i,k) for i in table[h]]
+    pairs.extend([(i,k,0) for i in table[h]]
     for j in range(k,len(string))
         h=r_hash(h,characters[string_2[j-k]],characters[string_2[j]],b,k)
-        pairs.extend([(i,j) for i in table[h]])
-    pairs=sorted(pairs,lambda x: x[0])
+        pairs.extend([(i,j,0) for i in table[h]])
+
+    pairs_e=[(i+k,j+k,1) for i,j,_ in pairs]
+    pairs.extend(pairs_e)
+    r=len(pairs)
+    pairs.sort(key=lambda x: (x[0]+1)*len(string_1)*len(string_2)+(x[1]+1)*len(string_2)+x[2])
     return pairs
