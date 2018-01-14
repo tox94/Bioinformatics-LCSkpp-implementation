@@ -15,8 +15,8 @@ class Fenwick_tree(object):
 
     def update(self,i,value):
         i+=1
-        if (self.f_tree[i]>value):
-            return
+        #if (self.f_tree[i]>value):
+        #    return
         while(i<self.length):
             self.f_tree[i]=max(self.f_tree[i],value)
             i|=i+1
