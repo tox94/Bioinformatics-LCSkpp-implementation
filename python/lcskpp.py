@@ -17,12 +17,16 @@ def continues(x,events):
 def LCSkpp(k,string_1,string_2):
     maxColDP=Fenwick_tree(len(string_2))
     events=MatchPairs(string_1,string_2,k)
-    #print (events)
+    print (events)
     dp={}
+    i=0
     for event in events:
         if event[2]==0:
             dp[event]=0
     for event in events:
+        if event[0]!=i:
+            i=event[0]
+            print (i)
         if event[2]==0:
             dp[event]=k+maxColDP.get(event[1])
         else:
@@ -33,6 +37,7 @@ def LCSkpp(k,string_1,string_2):
             maxColDP.update(event[1],dp[p])
         #print(maxColDP.get(len(string_2)))
     m=0
+    print ("kaos")
     for event in events:
         if event[2]==0:
             pom=dp[event]

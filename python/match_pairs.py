@@ -43,7 +43,7 @@ def MatchPairs(string_1,string_2,k):
     for i in range(1,k):
         h=r_hash(h,0,characters[string_2[i]],b,k)
     if h in table:
-        pairs.extend([(0,0,0) for i in table[h]])
+        pairs.extend([(i,0,0) for i in table[h]])
     for j in range(k,len(string_2)):
         h=r_hash(h,characters[string_2[j-k]],characters[string_2[j]],b,k)
         if h not in table:
