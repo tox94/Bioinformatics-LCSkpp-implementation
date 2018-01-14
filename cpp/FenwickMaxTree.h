@@ -1,3 +1,11 @@
+/**
+  Fenwick data structure for calculating 
+  maximum value of first i elements in an
+  array.
+ 
+  @author: Mihovil Kucijan
+ 
+ */
 #ifndef _LCSKPP_FENWICKMAXTREE_H_
 #define _LCSKPP_FENWICKMAXTREE_H_
 
@@ -14,12 +22,12 @@ public:
         i++;
 
         int max_value = 0;
-
         while(i>0) {
             max_value = std::max(values[i],max_value);
             i = getPrevious(i);
         }
 
+        return max_value;
     }
 
     void setValue(size_t i, int new_value) {
