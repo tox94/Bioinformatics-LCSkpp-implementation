@@ -38,9 +38,10 @@ def LCSkpp(k,string_1,string_2):
         value,p=dp[child]
         if value>maximum_length:
             maximum_length=value
-            child_first=p
+            child_first=child
     path=[(child_first[0],child_first[1])]
     child=child_first
+    print (child_first)
     parent=(0,0,False)
     while(True):
         v,parent=dp[child]
