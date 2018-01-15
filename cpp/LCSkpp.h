@@ -15,7 +15,7 @@
 #include <unordered_map>
 #include <tuple>
 
-#include "FenwickMaxTree.h"
+typedef std::pair<int,std::pair<int,int>> dpType;
 
 struct pair_hash {
     inline std::size_t operator()(const std::pair<int,int> & v) const {
@@ -31,7 +31,11 @@ std::vector<std::tuple<int,int,bool>>* get_events(
             std::string& a, std::string& b, int k,
             Map2D& matchPairs);
 
-int LCSkpp(std::string& a, std::string& b, const int k);
+void reconstruct(std::string& a, std::string& b, int k,
+                std::vector<int>& dp, std::vector<std::pair<int,int>>& prev,
+                Map2D& matchPairs,dpType& dpMax, std::string& reconstructed);
+
+int LCSkpp(std::string& a, std::string& b, const int k, std::string& reconstructed);
 
 #endif // _LCSKPP_H_
 

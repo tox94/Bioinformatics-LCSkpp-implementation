@@ -84,8 +84,29 @@ std::vector<std::tuple<int,int,bool>>* get_events(
 
     return events;
 }
+#include<iostream>
+void reconstruct(std::string& a, std::string& b, int k,
+                std::vector<int>& dp, std::vector<std::pair<int,int>>& prev,
+                Map2D& matchPairs,dpType& maxDp, std::string& reconstructed) {
+                
+    int dpValue = maxDp.first;
+    std::pair<int, int> i_j = maxDp.second;
+    int i_prev = i_j.first;
+    int i = i_prev + k;
+    while(i_prev != -1) {
+        if((i-i_prev)<=k) {
+            reconstructed = a.substr(i_prev, i-i_prev) + reconstructed;
+        } else {
+            reconstructed = a.substr(i_prev, k)+"-"+ reconstructed;
+        }
+        i_j = prev[matchPairs[i_j]];
+        i = i_prev;
+        i_prev = i_j.first;
 
-int LCSkpp(std::string& a, std::string& b, const int k) {
+    }
+}
+
+int LCSkpp(std::string& a, std::string& b, const int k, std::string& reconstructed) {
     Map2D matchPairs;
     auto events = get_events(a, b, k, matchPairs);
     
@@ -93,8 +114,9 @@ int LCSkpp(std::string& a, std::string& b, const int k) {
     FenwickMaxTree dpColMax(n);
 
     std::vector<int> dp(matchPairs.size());
+    std::vector<std::pair<int,int>> prev(matchPairs.size());
 
-    int maxDp = 0;
+    dpType maxDp = std::make_pair(0,std::make_pair(-1,-1)); 
 
     for(auto event=events->begin(); event!=events->end(); event++) {
         int i = std::get<0>(*event);
@@ -103,25 +125,34 @@ int LCSkpp(std::string& a, std::string& b, const int k) {
 
         if (start) {
             std::pair<int,int> i_j = std::make_pair(i,j);
-            dp[matchPairs[i_j]] = dpColMax.getMax(j) + k;
+            dpType col = dpColMax.getMax(j);
+            prev[matchPairs[i_j]] = col.second;
+            dp[matchPairs[i_j]] = col.first + k;
         
         } else {
             std::pair<int,int> i_j = std::make_pair(i-k,j-k);
             auto iprev_jprev = std::make_pair(i-1-k,j-1-k); // i,j is end of substring, 
                                                             // we need to lookup does start of prev exists
             if (matchPairs.find(iprev_jprev) != matchPairs.end()) {
+                if (dp[matchPairs[iprev_jprev]]+1 > dp[matchPairs[i_j]]) {
+                    dp[matchPairs[i_j]] = dp[matchPairs[iprev_jprev]]+1;
+                    prev[matchPairs[i_j]] = iprev_jprev;
+                }
                 dp[matchPairs[i_j]] = std::max( dp[matchPairs[iprev_jprev]]+1, dp[matchPairs[i_j]] );
 
             }    
 
-            dpColMax.setValue(j,dp[matchPairs[i_j]]);
+            dpType cur = std::make_pair(dp[matchPairs[i_j]],i_j);
+
+            dpColMax.setValue(j, cur);
 
 
-            maxDp = std::max(dp[matchPairs[i_j]], maxDp);
+            maxDp = dpMax(maxDp,cur);
         }
     }
 
-    return maxDp; 
+    reconstruct(a,b, k, dp, prev, matchPairs, maxDp, reconstructed);
+    return maxDp.first; 
 }
 
 
