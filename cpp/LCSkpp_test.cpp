@@ -6,8 +6,8 @@ using namespace std;
 
 int main(int argc, char const *argv[]) {
     
-    string a="ABCDABC";
-    string b="ABCEABC";
+    string a="ACGTTACAG";
+    string b="TCGTCACAG";
     int k=3;
     int lcskpp_value = LCSkpp(a,b,k); 
     

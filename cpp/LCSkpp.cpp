@@ -12,7 +12,6 @@
 #include "LCSkpp.h"
 #include "FenwickMaxTree.h"
 
-#include <iostream>
 
 //construct dictionary for every type of character in given strings
 //and give it byte label starting from 0.
@@ -40,6 +39,7 @@ std::vector<std::tuple<int,int,bool>>* get_events(
     int alphabet_size = code.size();
 
     // using rabin karp for k length substring alphabet_size**k posible substrings
+    // size is bounded by number of bits used for hash constraning to 2^64 combinations
     uint64_t mod = 1;
     uint64_t hash = 0;
     std::unordered_multimap<uint64_t, int> a_index;
@@ -89,7 +89,7 @@ int LCSkpp(std::string& a, std::string& b, const int k) {
     Map2D matchPairs;
     auto events = get_events(a, b, k, matchPairs);
     
-    int n = b.size() + 1;
+    int n = b.size();
     FenwickMaxTree dpColMax(n);
 
     std::vector<int> dp(matchPairs.size());
