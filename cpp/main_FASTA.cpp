@@ -47,7 +47,9 @@ int main(int argc, char const *argv[]) {
     }
 
     int k=atoi(argv[3]);
-    int lcskpp_value = LCSkpp(a,b,k); 
+    string reconstructed;
+
+    int lcskpp_value = LCSkpp(a,b,k, reconstructed); 
     
     cout<<lcskpp_value<<endl;
 
