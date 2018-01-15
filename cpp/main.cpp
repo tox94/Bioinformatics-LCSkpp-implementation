@@ -11,6 +11,7 @@ int main(int argc, char const *argv[]) {
 
     if(argc != 3) {
         cerr<< "Required 1 file with 2 sequences and k value"<<endl;
+        cerr<< "File should consist of 2 lines with string in each used for measuring."<<endl;
         return -1;
     }
 
