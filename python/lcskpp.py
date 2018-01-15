@@ -34,14 +34,16 @@ def LCSkpp(k,string_1,string_2):
     #path reconstruction
     maximum_length=0
     child_first=(0,0,False)
-    for child in dp.keys():
+    keys=[key for key in dp.keys()]
+    keys.sort()
+    for child in keys:
         value,p=dp[child]
-        if value>maximum_length:
+        if value>=maximum_length:
             maximum_length=value
             child_first=child
     path=[(child_first[0],child_first[1])]
     child=child_first
-    print (child_first)
+
     parent=(0,0,False)
     while(True):
         v,parent=dp[child]
@@ -56,19 +58,43 @@ def LCSkpp(k,string_1,string_2):
     path.reverse()
     i_prev=j_prev=-k
     s1_m=s2_m=""
+    test_s1=test_s2=""
     for step in path:
         i,j=step
-        s1_m+="-"*(i-i_prev-k)
-        s2_m+="-"*(j-j_prev-k)
-        s1_m+=string_1[i-max(0,-(i-i_prev-k)):i+k]
-        s2_m+=string_2[j-max(0,-(j-j_prev-k)):j+k]
+        cri=chi=crj=chj=0
+        if i-i_prev>=k:
+            cri=i-i_prev-k
+        else:
+            chi=k-1
+        if j-j_prev>=k:
+            crj=j-j_prev-k
+        else:
+            chj=k-1
+        #print (j,j_prev,crj,chj)
+        s1_m+="-"*cri
+        s2_m+="-"*crj
+        test_s1+=string_1[i+chi:i+k]
+        test_s2+=string_2[j+chj:j+k]
+        s1_m+=string_1[i+chi:i+k]
+        s2_m+=string_2[j+chj:j+k]
         i_prev,j_prev=i,j
     s1_m+="-"*(len(string_1)-len(s1_m))
     s2_m+="-"*(len(string_2)-len(s2_m))
+    print (len(s1_m))
+    print ("\n")
+
     print (string_1)
     print (s1_m)
     print ("\n")
     print (string_2)
     print (s2_m)
     print ("\n")
+
+    print (len(test_s1))
+    print (test_s1)
+    print (test_s2)
+    print (test_s1==test_s2)
+    print ("\n")
+
+
     return maximum_length
