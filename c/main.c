@@ -20,8 +20,8 @@ int main(int argc, char const *argv[]) {
     rez = lcskpp(a,b, k, recon);
 
     printf("%d\n", rez);
-    printf("%s\n",a);
-    printf("%s\n",b);
+    //printf("%s\n",a);
+    //printf("%s\n",b);
     printf("%s\n",*recon);
     //printf("%d\n",strlen(*recon));
 

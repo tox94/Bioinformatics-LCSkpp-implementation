@@ -1,6 +1,6 @@
 # LCSk++ implementation in c++
 
-## Instalation:
+## Installation:
 Compiling main function depending on input format:
  - g++ -o main main.cpp LCSkpp.cpp
  - g++ -o main_FASTA main_FASTA.cpp LCSkpp.cpp

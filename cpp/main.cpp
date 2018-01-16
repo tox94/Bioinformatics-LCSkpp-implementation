@@ -34,6 +34,5 @@ int main(int argc, char const *argv[]) {
 
     cout<<reconstructed<<endl;
 
-    cout<<reconstructed.size()<<endl;
     return 0;
 }
