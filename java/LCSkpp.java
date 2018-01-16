@@ -1,9 +1,13 @@
+import java.io.File;
+import java.io.FileWriter;
+import java.io.IOException;
 import java.util.ArrayList;
 import java.util.Collections;
 import java.util.HashMap;
 
 public class LCSkpp {
 	
+	private String WORKSPACE_PATH = "";
 	private int maxLen;
 	private Pair first;
 	private String s1m = "", s2m = "", test1m = "", test2m = "";
@@ -90,19 +94,27 @@ public class LCSkpp {
 		this.s1m += generateString("-", x.length() - s1m.length());
 		this.s2m += generateString("-", y.length() - s2m.length());
 		
-		System.out.println(s1m.length());
-		System.out.println("\n");
-		System.out.println(x);
-		System.out.println(s1m);
-		System.out.println("\n");
-		System.out.println(y);
-		System.out.println(s2m);
-		System.out.println("\n");
-		System.out.println(test1m.length());
-		System.out.println(test1m);
-		System.out.println(test2m);
-		System.out.println(test1m.equals(test2m));
-		System.out.println("\n");
+		try {
+			File file = new File(WORKSPACE_PATH, "/output.txt");
+			
+			FileWriter fw = new FileWriter(file);
+			fw.write(s1m.length());
+			fw.write("\n");
+			fw.write(x);
+			fw.write(s1m);
+			fw.write("\n");
+			fw.write(y);
+			fw.write(s2m);
+			fw.write("\n");
+			fw.write(test1m.length());
+			fw.write(test1m);
+			fw.write(test2m);
+			fw.write(String.valueOf(test1m.equals(test2m)));
+			fw.write("\n");
+			fw.close();
+		} catch (IOException e) {
+			System.out.println("Output file error.");
+		}	
 	}
 	
 	public String generateString(String s, int n) {
