@@ -10,7 +10,7 @@ def main():
     string_1=file.readline().strip().lower()
     string_2=file.readline().strip().lower()
     file.close()
-    maximum_length=LCSkpp(k,string_1,string_2)
-    print (maximum_length)
+    LCSkpp(k,string_1,string_2)
+    
 if __name__ == '__main__':
     main()
