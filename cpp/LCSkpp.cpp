@@ -91,13 +91,14 @@ void reconstruct(std::string& a, std::string& b, int k,
                 
     int dpValue = maxDp.first;
     std::pair<int, int> i_j = maxDp.second;
-    int i_prev = i_j.first;
-    int i = i_prev + k;
+    int i_prev = i_j.first; //using only a string for reconstruction
+    int i = i_prev + k;     //all indexes are start of substring, end on last one
     while(i_prev != -1) {
         if((i-i_prev)<=k) {
-            reconstructed = a.substr(i_prev, i-i_prev) + reconstructed;
+            reconstructed = a.substr(i_prev, i-i_prev) + reconstructed; //when continues only adds one char
+                                                                        //or precedes for exactly k
         } else {
-            reconstructed = a.substr(i_prev, k)+"-"+ reconstructed;
+            reconstructed = a.substr(i_prev, k)+"-"+ reconstructed; //when precedes gap exists
         }
         i_j = prev[matchPairs[i_j]];
         i = i_prev;
@@ -114,7 +115,7 @@ int LCSkpp(std::string& a, std::string& b, const int k, std::string& reconstruct
     FenwickMaxTree dpColMax(n);
 
     std::vector<int> dp(matchPairs.size());
-    std::vector<std::pair<int,int>> prev(matchPairs.size());
+    std::vector<std::pair<int,int>> prev(matchPairs.size()); // previous indexes for reconstruction
 
     dpType maxDp = std::make_pair(0,std::make_pair(-1,-1)); 
 
