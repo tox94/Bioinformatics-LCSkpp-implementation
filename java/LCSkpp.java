@@ -6,6 +6,8 @@ public class LCSkpp {
 	
 	private int maxLen;
 	private Pair first;
+	private String s1m = "", s2m = "", test1m = "", test2m = "";
+	private int iPrev, jPrev;
 	
 	public LCSkpp(int k, String x, String y) {
 		int n = y.length();
@@ -64,23 +66,53 @@ public class LCSkpp {
 			child = parent;
 		}
 		Collections.sort(path, Collections.reverseOrder());
-		int prev = -k;
-		String s1m, s2m, test1m, test2m = "";
+		this.iPrev = -k;
+		this.jPrev = -k;
 		path.forEach((Integer step) -> {
 			int i = step;
 			int j = step;
-			int cri, chi, crj, chj = 0;
-			if (i - prev >= k) {
-				cri = i - prev - k;
+			int cri = 0, chi = 0, crj = 0, chj = 0;
+			if (i - iPrev >= k) {
+				cri = i - iPrev - k;
 			}else {
 				chi = k - 1;
 			}
-			if (j - prev >= k) {
-				crj = j - prev - k;
+			if (j - jPrev >= k) {
+				crj = j - jPrev - k;
 			}else {
-				chj = k -1;
+				chj = k - 1;
 			}
+			this.s1m += generateString("-", cri);
+			this.s2m += generateString("-", crj);
+			this.test1m += x.substring(i + chi, i + k);
+			this.test2m += y.substring(j + chj, j + k);
+			this.s1m += x.substring(i + chi, i +k);
+			this.s2m += y.substring(j + chj, j +k);
+			this.iPrev = i;
+			this.jPrev = j;
 		});
+		
+		this.s1m += generateString("-", x.length() - s1m.length());
+		this.s2m += generateString("-", y.length() - s2m.length());
+		
+		System.out.println(s1m.length());
+		System.out.println(x);
+		System.out.println(s1m);
+		System.out.println("\n");
+		System.out.println(y);
+		System.out.println(s2m);
+		System.out.println("\n");
+		System.out.println(test1m.length());
+		System.out.println(test1m);
+		System.out.println(test2m);
+		System.out.println("\n");
+	}
+	
+	public String generateString(String s, int n) {
+		String str = "";
+		for (int i=0; i<n; i++)
+			str += s;
+		return str;
 	}
 
 	public int getLCSkpp () {
