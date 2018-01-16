@@ -18,26 +18,30 @@ public class LCSkpp {
 		HashMap<Pair, Pair> continueMap = new HashMap<Pair, Pair>();
 		ArrayList<Integer> path = new ArrayList<Integer>();
 		
-		events.forEach((Pair event) -> {
+		for (int i = 0; i < events.size(); i++) {
+			Pair event = events.get(i);
 			if (event.getBool() == false) {
 				dp.put(event, new Node());
 				continueMap.put(new Pair(event.getI() + 1,  event.getJ() + 1, event.getBool()), event);
 			}
-		});
+		}
 		
-		events.forEach((Pair event) -> {
+		for (int i = 0; i < events.size(); i++) {
+			Pair event = events.get(i);
 			if (event.getBool() == false) {
 				Node temp = maxColDP.get(event.getI());
-				dp.put(event, new Node(temp.getLen() + k, temp.getI(), temp.getJ(), temp.getBool()));
+				if (temp != null)
+					dp.put(event, new Node(temp.getLen() + k, temp.getI(), temp.getJ(), temp.getBool()));
 			}else {
 				Pair p = new Pair(event.getI() - k, event.getJ() - k, false);
 				Pair p2 = continueMap.get(p);
 				if(p2 != null) {
 					dp.put(p, new Node(dp.get(p2).getLen() + 1, p2));
+					maxColDP.update(event.getJ(), dp.get(p).getLen(), p);
 				}
-				maxColDP.update(event.getJ(), dp.get(p).getLen(), p);
+				//ovdje treba vratiti maxColDP
 			}
-		});
+		}
 		
 		this.maxLen = 0;
 		first = new Pair(0, 0, false);
@@ -58,8 +62,10 @@ public class LCSkpp {
 		Pair parent = new Pair(0, 0, false);
 		while(true) {
 			Node temp = dp.get(child);
-			parent = new Pair(temp.getI(), temp.getJ(), temp.getBool());
-			if (parent.equals(new Pair(-1, -1, false)) || parent.equals(new Pair(0, 0, false)))
+			if (temp != null)
+				parent = new Pair(temp.getI(), temp.getJ(), temp.getBool());
+			if ((parent.getI() == -1 && parent.getJ() == -1 && parent.getBool() == false) 
+					|| (parent.getI() == 0 && parent.getJ() == 0 && parent.getBool() == false))
 				break;
 			path.add(parent.getI());
 			path.add(parent.getJ());
@@ -96,6 +102,7 @@ public class LCSkpp {
 		this.s2m += generateString("-", y.length() - s2m.length());
 		
 		System.out.println(s1m.length());
+		System.out.println("\n");
 		System.out.println(x);
 		System.out.println(s1m);
 		System.out.println("\n");
@@ -105,6 +112,7 @@ public class LCSkpp {
 		System.out.println(test1m.length());
 		System.out.println(test1m);
 		System.out.println(test2m);
+		System.out.println(test1m.equals(test2m));
 		System.out.println("\n");
 	}
 	

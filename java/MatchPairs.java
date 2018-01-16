@@ -66,11 +66,13 @@ public class MatchPairs {
 		for (char c : x.toCharArray()) {
 			if (!map.containsKey(c)) {
 				map.put(c, i);
+				i+=1;
 			}
 		}
 		for (char c : y.toCharArray()) {
 			if (!map.containsKey(c)) {
 				map.put(c, i);
+				i+=1;
 			}
 		}
 		i -= 1;
