@@ -45,6 +45,8 @@ def LCSkpp(k,string_1,string_2):
     child=child_first
 
     parent=(0,0,False)
+    if maximum_length==0:
+        return
     while(True):
         v,parent=dp[child]
         if (parent==(-1,-1,False)):
@@ -80,7 +82,7 @@ def LCSkpp(k,string_1,string_2):
         i_prev,j_prev=i,j
     s1_m+="-"*(len(string_1)-len(s1_m))
     s2_m+="-"*(len(string_2)-len(s2_m))
-    f=open("py_output.txt")
+    f=open("py_output.txt","w")
     f.write(string_1+"\n")
     f.write(s1_m+"\n\n")
 
