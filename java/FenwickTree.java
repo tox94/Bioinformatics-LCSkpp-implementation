@@ -24,12 +24,12 @@ public class FenwickTree {
 		return n;
 	}
 	
-	public void update(int i, int value) {
+	public void update(int i, int value, Pair p) {
 		i += 1;
 		while (i < this.size) {
 			Node n = this.nodes[i];
 			if (n.getLen()<= value) {
-				Node temp = new Node(value, n.getI(), n.getJ());
+				Node temp = new Node(value, p.getI(), p.getJ(), p.getBool());
 				this.nodes[i] = temp;
 			}
 			i |= i+1;
@@ -37,7 +37,7 @@ public class FenwickTree {
 	}
 	
 	public Node[] StartArray(int n) {
-		Node[] arr = null;
+		Node[] arr = new Node[n];
 		for (int i=0; i<n; i++) {
 			arr[i] = new Node();
 		}

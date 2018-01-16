@@ -1,3 +1,4 @@
+import java.util.Comparator;
 
 public class Pair implements Comparable<Object>{
 	
@@ -9,6 +10,12 @@ public class Pair implements Comparable<Object>{
 		this.i = i;
 		this.j = j;
 		this.bool = bool;
+	}
+	
+	public Pair() {
+		this.i = -1;
+		this.j = -1;
+		this.bool = false;
 	}
 	
 	public int getI() {
@@ -25,8 +32,7 @@ public class Pair implements Comparable<Object>{
 
 	@Override
 	public int compareTo(Object comp) {
-		int x = ((Pair)comp).getI();
-		return this.getI() - x;
+		return Comparator.comparingInt(Pair::getI).thenComparingInt(Pair::getJ).compare(this, (Pair) comp);
 	}
 
 }

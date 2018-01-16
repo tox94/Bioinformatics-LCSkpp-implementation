@@ -28,7 +28,7 @@ public class Main {
 			return;
 		}
 		LCSkpp l = new LCSkpp(k, x, y);
-		int maxLen = l.getLCSkpp(k, x, y);
+		int maxLen = l.getLCSkpp();
 		System.out.println("Najveæa duljina: " + maxLen);
 	}
 }

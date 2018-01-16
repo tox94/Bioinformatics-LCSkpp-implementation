@@ -1,19 +1,18 @@
 import java.util.ArrayList;
 import java.util.Collections;
 import java.util.HashMap;
-import java.util.List;
 
 public class MatchPairs {
 	
 	private int size;
-	private List<Pair> allPairs;
+	private ArrayList<Pair> allPairs;
 	
 	public MatchPairs(int k, String x, String y) {
 		this.size = 0;
 		HashMap<Character, Integer> map = init(x, y);
 		HashMap<Integer, Integer> table = new HashMap<Integer, Integer>();
-		List<Pair> pairs = new ArrayList<Pair>();
-		List<Pair> pairsE = new ArrayList<Pair>();
+		ArrayList<Pair> pairs = new ArrayList<Pair>();
+		ArrayList<Pair> pairsE = new ArrayList<Pair>();
 		int mask = 2^(this.size*k)-1;
 		
 		int h = RHash(0, map.get(x.toCharArray()[0]), this.size, k, mask);
@@ -91,7 +90,11 @@ public class MatchPairs {
 		return h;
 	}
 	
-	public List<Pair> getPairs(){
+	public ArrayList<Pair> getPairs(){
 		return this.allPairs;
+	}
+	
+	public int getSize() {
+		return this.size;
 	}
 }
