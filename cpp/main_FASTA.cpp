@@ -32,7 +32,7 @@ int main(int argc, char const *argv[]) {
         }
     }
 
-        while (getline(input2, line)) {
+     while (getline(input2, line)) {
 
         if(line.empty())
             continue;

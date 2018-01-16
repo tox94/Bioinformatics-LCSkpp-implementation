@@ -84,7 +84,7 @@ std::vector<std::tuple<int,int,bool>>* get_events(
 
     return events;
 }
-#include<iostream>
+
 void reconstruct(std::string& a, std::string& b, int k,
                 std::vector<int>& dp, std::vector<std::pair<int,int>>& prev,
                 Map2D& matchPairs,dpType& maxDp, std::string& reconstructed) {
@@ -139,7 +139,7 @@ int LCSkpp(std::string& a, std::string& b, const int k, std::string& reconstruct
                     dp[matchPairs[i_j]] = dp[matchPairs[iprev_jprev]]+1;
                     prev[matchPairs[i_j]] = iprev_jprev;
                 }
-                dp[matchPairs[i_j]] = std::max( dp[matchPairs[iprev_jprev]]+1, dp[matchPairs[i_j]] );
+                //dp[matchPairs[i_j]] = std::max( dp[matchPairs[iprev_jprev]]+1, dp[matchPairs[i_j]] );
 
             }    
 
