@@ -10,22 +10,28 @@ public class MatchPairs {
 	public MatchPairs(int k, String x, String y) {
 		this.size = 0;
 		HashMap<Character, Integer> map = init(x, y);
-		HashMap<Integer, Integer> table = new HashMap<Integer, Integer>();
+		HashMap<Integer, ArrayList<Integer>> table = new HashMap<Integer, ArrayList<Integer>>();
 		ArrayList<Pair> pairs = new ArrayList<Pair>();
 		ArrayList<Pair> pairsE = new ArrayList<Pair>();
-		int mask = 2^(this.size*k)-1;
+		int mask = (int) (Math.pow(2, this.size*k)-1);
 		
 		int h = RHash(0, map.get(x.toCharArray()[0]), this.size, k, mask);
 		for(int i = 1; i< k; i++) {
 			h = RHash(h, map.get(x.toCharArray()[i]), this.size, k, mask);
 		}
 		if (!table.containsKey(h)) {
-			table.put(h, 0);
+			ArrayList<Integer> temp = new ArrayList<Integer>();
+			temp.add(0);
+			table.put(h, temp);
 		}
 		for (int i = k; i<x.length(); i++) {
 			h = RHash(h, map.get(x.toCharArray()[i]), this.size, k, mask);
 			if (!table.containsKey(h)) {
-				table.put(h, i-k+1);
+				ArrayList<Integer> temp = new ArrayList<Integer>();
+				temp.add(i-k+1);
+				table.put(h, temp);
+			}else {
+				table.get(h).add(i-k+1);
 			}
 		}
 		
@@ -34,9 +40,10 @@ public class MatchPairs {
 			h = RHash(h, map.get(y.toCharArray()[i]), this.size, k, mask);
 		}
 		if (table.containsKey(h)) {
-			table.forEach((key, value) -> {
-				pairs.add(new Pair(value, 0, false));
-			});
+			ArrayList<Integer> temp = table.get(h);
+			for (int i=0; i< temp.size(); i++) {
+				pairs.add(new Pair(temp.get(i), 0, true));
+			}
 			
 		}
 		for (int j = k; j<y.length(); j++) {
@@ -45,14 +52,15 @@ public class MatchPairs {
 				continue;
 			}
 			int val = j -k + 1;
-			table.forEach((key, value) -> {
-				pairs.add(new Pair(value, val, false));
-			});
+			ArrayList<Integer> temp = table.get(h);
+			for (int i=0; i< temp.size(); i++) {
+				pairs.add(new Pair(temp.get(i), val, true));
+			}
 		}
 		
 		int r = pairs.size();
 		pairs.forEach((p) -> {
-			pairsE.add(new Pair(p.getI() + k, p.getJ() + k, true));			
+			pairsE.add(new Pair(p.getI() + k, p.getJ() + k, false));			
 		});
 		pairs.addAll(pairsE);
 		Collections.sort(pairs);

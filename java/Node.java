@@ -4,9 +4,9 @@ public class Node {
 	private int len;
 	private int i;
 	private int j;
-	private Boolean bool;
+	private boolean bool;
 	
-	public Node(int len, int i, int j, Boolean bool) {
+	public Node(int len, int i, int j, boolean bool) {
 		this.len = len;
 		this.i = i;
 		this.j = j;
@@ -24,8 +24,13 @@ public class Node {
 		this.len = 0;
 		this.i = -1;
 		this.j = -1;
-		this.bool = false;
+		this.bool = true;
 	}
+	
+	@Override
+    public int hashCode() {
+        return (i<<8) + j;
+    }
 	
 	public int getLen() {
 		return this.len;
@@ -36,7 +41,7 @@ public class Node {
 	public int getJ() {
 		return this.j;
 	}
-	public Boolean getBool() {
+	public boolean getBool() {
 		return this.bool;
 	}
 }

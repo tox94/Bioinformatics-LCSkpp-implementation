@@ -4,9 +4,9 @@ public class Pair implements Comparable<Object>{
 	
 	private int i;
 	private int j;
-	private Boolean bool;
+	private boolean bool;
 	
-	public Pair(int i, int j, Boolean bool) {
+	public Pair(int i, int j, boolean bool) {
 		this.i = i;
 		this.j = j;
 		this.bool = bool;
@@ -15,7 +15,7 @@ public class Pair implements Comparable<Object>{
 	public Pair() {
 		this.i = -1;
 		this.j = -1;
-		this.bool = false;
+		this.bool = true;
 	}
 	
 	public int getI() {
@@ -26,9 +26,20 @@ public class Pair implements Comparable<Object>{
 		return this.j;
 	}
 	
-	public Boolean getBool() {
+	public boolean getBool() {
 		return this.bool;
 	}
+	
+	@Override
+	public boolean equals(Object o) {
+		Pair p = (Pair) o;
+		return (this.i == p.getI()) && (this.j == p.j) && (this.bool == p.getBool());
+	}
+	
+	@Override
+    public int hashCode() {
+        return (i<<8) + j;
+    }
 
 	@Override
 	public int compareTo(Object comp) {

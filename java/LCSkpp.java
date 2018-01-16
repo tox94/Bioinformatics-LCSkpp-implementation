@@ -16,35 +16,26 @@ public class LCSkpp {
 		ArrayList<Pair> events = mp.getPairs();
 		HashMap<Pair, Node> dp = new HashMap<Pair, Node>();
 		HashMap<Pair, Pair> continueMap = new HashMap<Pair, Pair>();
-		ArrayList<Integer> path = new ArrayList<Integer>();
+		ArrayList<Pair> path = new ArrayList<Pair>();
 		
 		for (int i = 0; i < events.size(); i++) {
 			Pair event = events.get(i);
-			if (event.getBool() == false) {
-				dp.put(event, new Node());
+			if (event.getBool() == true) {
+				Node temp = maxColDP.get(event.getJ());
 				continueMap.put(new Pair(event.getI() + 1,  event.getJ() + 1, event.getBool()), event);
-			}
-		}
-		
-		for (int i = 0; i < events.size(); i++) {
-			Pair event = events.get(i);
-			if (event.getBool() == false) {
-				Node temp = maxColDP.get(event.getI());
-				if (temp != null)
-					dp.put(event, new Node(temp.getLen() + k, temp.getI(), temp.getJ(), temp.getBool()));
+				dp.put(event, new Node(temp.getLen() + k, temp.getI(), temp.getJ(), temp.getBool()));
 			}else {
-				Pair p = new Pair(event.getI() - k, event.getJ() - k, false);
-				Pair p2 = continueMap.get(p);
+				Pair p = new Pair(event.getI() - k, event.getJ() - k, true);
+				Object p2 = continueMap.get(p);
 				if(p2 != null) {
-					dp.put(p, new Node(dp.get(p2).getLen() + 1, p2));
-					maxColDP.update(event.getJ(), dp.get(p).getLen(), p);
+					dp.put(p, new Node(dp.get((Pair)p2).getLen() + 1, (Pair)p2));
 				}
-				//ovdje treba vratiti maxColDP
+				maxColDP.update(event.getJ(), dp.get(p).getLen(), p);
 			}
 		}
 		
 		this.maxLen = 0;
-		first = new Pair(0, 0, false);
+		first = new Pair(0, 0, true);
 		ArrayList<Pair> keys = new ArrayList<Pair>();
 		keys.addAll(dp.keySet());
 		Collections.sort(keys);
@@ -55,28 +46,26 @@ public class LCSkpp {
 				first = child;
 			}
 		});
-		path.add(first.getI());
-		path.add(first.getJ());
+		path.add(first);
 		Pair child = this.first;
 		
-		Pair parent = new Pair(0, 0, false);
+		Pair parent = new Pair(0, 0, true);
 		while(true) {
 			Node temp = dp.get(child);
 			if (temp != null)
 				parent = new Pair(temp.getI(), temp.getJ(), temp.getBool());
-			if ((parent.getI() == -1 && parent.getJ() == -1 && parent.getBool() == false) 
-					|| (parent.getI() == 0 && parent.getJ() == 0 && parent.getBool() == false))
+			if ((parent.getI() == -1 && parent.getJ() == -1 && parent.getBool() == true) 
+					|| (parent.getI() == 0 && parent.getJ() == 0 && parent.getBool() == true))
 				break;
-			path.add(parent.getI());
-			path.add(parent.getJ());
+			path.add(parent);
 			child = parent;
 		}
-		Collections.sort(path, Collections.reverseOrder());
+		Collections.sort(path);
 		this.iPrev = -k;
 		this.jPrev = -k;
-		path.forEach((Integer step) -> {
-			int i = step;
-			int j = step;
+		path.forEach((Pair step) -> {
+			int i = step.getI();
+			int j = step.getJ();
 			int cri = 0, chi = 0, crj = 0, chj = 0;
 			if (i - iPrev >= k) {
 				cri = i - iPrev - k;

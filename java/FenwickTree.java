@@ -10,16 +10,16 @@ public class FenwickTree {
 	}
 	
 	public Node get(int i) {
-		Node n = null;
+		Node n = new Node();
 		int res = 0;
 		i += 1 ;
-		while(i >= 0) {
+		while(i > 0) {
 			Node temp = this.nodes[i];
 			if (temp.getLen() > res) {
 				res = temp.getLen();
 				n = temp;
 			}
-			i = (i & (i + 1)) - 1;
+			i -= (i&-i);
 		}
 		return n;
 	}
@@ -32,7 +32,7 @@ public class FenwickTree {
 				Node temp = new Node(value, p.getI(), p.getJ(), p.getBool());
 				this.nodes[i] = temp;
 			}
-			i |= i+1;
+			i += (i&-i);
 		}
 	}
 	
