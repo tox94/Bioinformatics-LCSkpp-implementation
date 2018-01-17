@@ -15,8 +15,10 @@ int main(int argc, char const *argv[]) {
 
     int rez;
     char ** recon = (char**) malloc(sizeof(char*));
+    
     a[strlen(a)-1] = '\0';
     b[strlen(b)-1] = '\0';
+    printf("READ\n");
     rez = lcskpp(a,b, k, recon);
 
     printf("%d\n", rez);
