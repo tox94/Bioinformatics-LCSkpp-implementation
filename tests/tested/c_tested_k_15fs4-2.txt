@@ -1,9 +1,8 @@
-Command terminated by signal 11
 	Command being timed: "../c/main test_sequences/fs4-2.txt 15"
-	User time (seconds): 0.01
+	User time (seconds): 0.00
 	System time (seconds): 0.00
-	Percent of CPU this job got: 11%
-	Elapsed (wall clock) time (h:mm:ss or m:ss): 0:00.14
+	Percent of CPU this job got: 90%
+	Elapsed (wall clock) time (h:mm:ss or m:ss): 0:00.01
 	Average shared text size (kbytes): 0
 	Average unshared data size (kbytes): 0
 	Average stack size (kbytes): 0
@@ -11,8 +10,8 @@ Command terminated by signal 11
 	Maximum resident set size (kbytes): 3696
 	Average resident set size (kbytes): 0
 	Major (requiring I/O) page faults: 0
-	Minor (reclaiming a frame) page faults: 653
-	Voluntary context switches: 3
+	Minor (reclaiming a frame) page faults: 630
+	Voluntary context switches: 1
 	Involuntary context switches: 2
 	Swaps: 0
 	File system inputs: 0
