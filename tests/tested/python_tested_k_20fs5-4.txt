@@ -1,5 +1,5 @@
 	Command being timed: "python3 ../python/main.py 20 test_sequences/fs5-4.txt"
-	User time (seconds): 0.25
+	User time (seconds): 0.24
 	System time (seconds): 0.01
 	Percent of CPU this job got: 99%
 	Elapsed (wall clock) time (h:mm:ss or m:ss): 0:00.26
@@ -10,9 +10,9 @@
 	Maximum resident set size (kbytes): 34968
 	Average resident set size (kbytes): 0
 	Major (requiring I/O) page faults: 0
-	Minor (reclaiming a frame) page faults: 8707
+	Minor (reclaiming a frame) page faults: 8703
 	Voluntary context switches: 1
-	Involuntary context switches: 2
+	Involuntary context switches: 30
 	Swaps: 0
 	File system inputs: 0
 	File system outputs: 0

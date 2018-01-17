@@ -50,7 +50,7 @@ int compare(const void *e1, const void *e2) {
     } else {
         return -1;
     }
-  
+
 }
 
 void getMatches(char *a, char *b, int k, event_t **events_p, MapHash_t** matches_p, int* numMatches) {
@@ -63,12 +63,12 @@ void getMatches(char *a, char *b, int k, event_t **events_p, MapHash_t** matches
     Bucket_t *aMap = NULL;
     int i;
     for(i=0; i<k; i++) mod *= AlphabetSize;
-    
+
     for(i=0; i<k-1; i++) {
         hash = hash*AlphabetSize + alphabet[a[i]];
         hash %= mod;                            //calculating prefix of the first substring
     }
-    
+
     Bucket_t *s;
     int* index;
     for(i=k-1; i<strlen(a); i++) {
@@ -91,7 +91,7 @@ void getMatches(char *a, char *b, int k, event_t **events_p, MapHash_t** matches
         hash = hash*AlphabetSize + alphabet[b[i]];
         hash %= mod;                            //calculating prefix of the first substring
     }
-    
+
     *numMatches = 0;
     MapHash_t *matches = NULL;
     for(i=k-1; i<strlen(b); i++) {
@@ -177,7 +177,7 @@ int lcskpp(char* a, char* b, const int k, char** reconstructed) {
     int numMatches;
 
     getMatches(a,b,k,events_p,matches_p,&numMatches);
-    
+
     event_t* events = *events_p;
     MapHash_t* matches = *matches_p;
 
@@ -213,7 +213,7 @@ int lcskpp(char* a, char* b, const int k, char** reconstructed) {
 
     FenwickMax dpColMax;
     FenwickMax_new(&dpColMax, n);
-    
+
     int i;
     for(i=0; i<(numMatches*2); i++) {
         event_t event = events[i];
@@ -258,7 +258,7 @@ int lcskpp(char* a, char* b, const int k, char** reconstructed) {
             maxDp = pairMax(maxDp, cur);
         }
     }
-
+    if (numMatches==0) return 0;
     reconstruct(a, b, k, prev_index, indices, maxDp, reconstructed);
 
     return maxDp.first;
