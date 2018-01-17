@@ -6,7 +6,10 @@
 __pycache__/
 *.py[cod]
 *$py.class
-
+java/java_output.txt
+c/c_output.txt
+python/python_output.txt
+cpp/cpp_output.txt
 # C extensions
 *.so
 

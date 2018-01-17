@@ -2,4 +2,4 @@
 
 ## Usage:
 Run main program passing input file and k parametar:
-- python3 main.py k input.txt
+- python3 main.py <input.txt> <k>
