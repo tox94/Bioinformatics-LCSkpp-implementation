@@ -6,13 +6,11 @@ import java.util.Collections;
 import java.util.HashMap;
 
 public class LCSkpp {
-	
-	private String WORKSPACE_PATH = "";
 	private int maxLen;
 	private Pair first;
 	private String s1m = "", s2m = "", test1m = "", test2m = "";
 	private int iPrev, jPrev;
-	
+
 	public LCSkpp(int k, String x, String y) {
 		int n = y.length();
 		FenwickTree maxColDP = new FenwickTree(n);
@@ -21,7 +19,7 @@ public class LCSkpp {
 		HashMap<Pair, Node> dp = new HashMap<Pair, Node>();
 		HashMap<Pair, Pair> continueMap = new HashMap<Pair, Pair>();
 		ArrayList<Pair> path = new ArrayList<Pair>();
-		
+
 		for (int i = 0; i < events.size(); i++) {
 			Pair event = events.get(i);
 			if (event.getBool() == true) {
@@ -37,7 +35,7 @@ public class LCSkpp {
 				maxColDP.update(event.getJ(), dp.get(p).getLen(), p);
 			}
 		}
-		
+
 		this.maxLen = 0;
 		first = new Pair(0, 0, true);
 		ArrayList<Pair> keys = new ArrayList<Pair>();
@@ -52,13 +50,13 @@ public class LCSkpp {
 		});
 		path.add(first);
 		Pair child = this.first;
-		
+
 		Pair parent = new Pair(0, 0, true);
 		while(true) {
 			Node temp = dp.get(child);
 			if (temp != null)
 				parent = new Pair(temp.getI(), temp.getJ(), temp.getBool());
-			if ((parent.getI() == -1 && parent.getJ() == -1 && parent.getBool() == true) 
+			if ((parent.getI() == -1 && parent.getJ() == -1 && parent.getBool() == true)
 					|| (parent.getI() == 0 && parent.getJ() == 0 && parent.getBool() == true))
 				break;
 			path.add(parent);
@@ -90,13 +88,13 @@ public class LCSkpp {
 			this.iPrev = i;
 			this.jPrev = j;
 		});
-		
+
 		this.s1m += generateString("-", x.length() - s1m.length());
 		this.s2m += generateString("-", y.length() - s2m.length());
-		
+
 		try {
-			File file = new File(WORKSPACE_PATH, "/output.txt");
-			
+			File file = new File("output.txt");
+
 			FileWriter fw = new FileWriter(file);
 			fw.write(s1m.length());
 			fw.write("\n");
@@ -114,9 +112,9 @@ public class LCSkpp {
 			fw.close();
 		} catch (IOException e) {
 			System.out.println("Output file error.");
-		}	
+		}
 	}
-	
+
 	public String generateString(String s, int n) {
 		String str = "";
 		for (int i=0; i<n; i++)
