@@ -177,17 +177,12 @@ int lcskpp(char* a, char* b, const int k, char** reconstructed) {
     int numMatches;
 
     getMatches(a,b,k,events_p,matches_p,&numMatches);
-<<<<<<< HEAD
-
-=======
-    
     if ((numMatches)==0) {
         char* recon = (char *) malloc(sizeof(char));
         *recon = '\0';
         *reconstructed = recon;
         return 0;
     }
->>>>>>> db7f0549cc2cffdfa777fbe6a214cdb72fef9e45
     event_t* events = *events_p;
     MapHash_t* matches = *matches_p;
 
