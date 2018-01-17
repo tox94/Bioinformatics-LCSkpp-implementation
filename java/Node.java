@@ -1,9 +1,14 @@
+/** @author Toni Bakarcic */
+/** a helper class for storing all Pairs and their lengths*/
 
 public class Node {
 	
+	// variable that stores the length
 	private int len;
+	// variables that store the starting positions of strings
 	private int i;
 	private int j;
+	// variable is True if the Pair is starting
 	private boolean bool;
 	
 	public Node(int len, int i, int j, boolean bool) {
@@ -27,6 +32,7 @@ public class Node {
 		this.bool = true;
 	}
 	
+	// override method so that the Nodes can be hashed in a more effiecient manner
 	@Override
     public int hashCode() {
         return (i<<8) + j;
