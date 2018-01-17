@@ -1,8 +1,8 @@
-	Command being timed: "python3 ../python/main.py 25 test_sequences/fs2-0.txt"
-	User time (seconds): 0.02
+	Command being timed: "python3 ../python/main.py test_sequences/fs2-0.txt 25"
+	User time (seconds): 0.03
 	System time (seconds): 0.00
-	Percent of CPU this job got: 96%
-	Elapsed (wall clock) time (h:mm:ss or m:ss): 0:00.02
+	Percent of CPU this job got: 100%
+	Elapsed (wall clock) time (h:mm:ss or m:ss): 0:00.03
 	Average shared text size (kbytes): 0
 	Average unshared data size (kbytes): 0
 	Average stack size (kbytes): 0
@@ -10,7 +10,7 @@
 	Maximum resident set size (kbytes): 9832
 	Average resident set size (kbytes): 0
 	Major (requiring I/O) page faults: 0
-	Minor (reclaiming a frame) page faults: 1104
+	Minor (reclaiming a frame) page faults: 1105
 	Voluntary context switches: 1
 	Involuntary context switches: 1
 	Swaps: 0

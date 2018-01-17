@@ -1,18 +1,18 @@
-	Command being timed: "java -cp ../java/ Main main 20 test_sequences/fs2-4.txt"
-	User time (seconds): 0.17
-	System time (seconds): 0.02
+	Command being timed: "java -cp ../java/ Main main test_sequences/fs2-4.txt 20"
+	User time (seconds): 0.20
+	System time (seconds): 0.00
 	Percent of CPU this job got: 158%
-	Elapsed (wall clock) time (h:mm:ss or m:ss): 0:00.12
+	Elapsed (wall clock) time (h:mm:ss or m:ss): 0:00.13
 	Average shared text size (kbytes): 0
 	Average unshared data size (kbytes): 0
 	Average stack size (kbytes): 0
 	Average total size (kbytes): 0
-	Maximum resident set size (kbytes): 31244
+	Maximum resident set size (kbytes): 31232
 	Average resident set size (kbytes): 0
 	Major (requiring I/O) page faults: 0
-	Minor (reclaiming a frame) page faults: 3968
-	Voluntary context switches: 427
-	Involuntary context switches: 30
+	Minor (reclaiming a frame) page faults: 3971
+	Voluntary context switches: 406
+	Involuntary context switches: 140
 	Swaps: 0
 	File system inputs: 0
 	File system outputs: 72

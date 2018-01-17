@@ -1,18 +1,18 @@
-	Command being timed: "java -cp ../java/ Main main 15 test_sequences/fs3-1.txt"
-	User time (seconds): 0.18
-	System time (seconds): 0.03
-	Percent of CPU this job got: 163%
-	Elapsed (wall clock) time (h:mm:ss or m:ss): 0:00.13
+	Command being timed: "java -cp ../java/ Main main test_sequences/fs3-1.txt 15"
+	User time (seconds): 0.19
+	System time (seconds): 0.02
+	Percent of CPU this job got: 150%
+	Elapsed (wall clock) time (h:mm:ss or m:ss): 0:00.14
 	Average shared text size (kbytes): 0
 	Average unshared data size (kbytes): 0
 	Average stack size (kbytes): 0
 	Average total size (kbytes): 0
-	Maximum resident set size (kbytes): 39460
+	Maximum resident set size (kbytes): 39240
 	Average resident set size (kbytes): 0
 	Major (requiring I/O) page faults: 0
-	Minor (reclaiming a frame) page faults: 6003
-	Voluntary context switches: 498
-	Involuntary context switches: 29
+	Minor (reclaiming a frame) page faults: 5951
+	Voluntary context switches: 474
+	Involuntary context switches: 47
 	Swaps: 0
 	File system inputs: 0
 	File system outputs: 72
