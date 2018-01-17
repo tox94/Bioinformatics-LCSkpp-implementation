@@ -68,7 +68,7 @@ def MatchPairs(string_1,string_2,k):
         pairs.extend([(i,j-k+1,True) for i in table[h]]) #for every i index create i,j pair
 
     r=len(pairs)
-    print (r)
+
     pairs_e=[(i+k,j+k,False) for i,j,_ in pairs]
     pairs.extend(pairs_e) #create events starts are True ends are False
     pairs.sort() #sort in row major style ordering
