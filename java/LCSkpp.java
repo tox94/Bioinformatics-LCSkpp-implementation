@@ -30,7 +30,11 @@ public class LCSkpp {
 				Pair p = new Pair(event.getI() - k, event.getJ() - k, true);
 				Object p2 = continueMap.get(p);
 				if(p2 != null) {
-					dp.put(p, new Node(dp.get((Pair)p2).getLen() + 1, (Pair)p2));
+					int a=dp.get((Pair)p2).getLen() + 1;
+					int b=dp.get(p).getLen();
+					if (a>b){
+						dp.put(p, new Node(a, (Pair)p2));
+					}
 				}
 				maxColDP.update(event.getJ(), dp.get(p).getLen(), p);
 			}

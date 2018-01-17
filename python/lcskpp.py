@@ -13,27 +13,25 @@ def LCSkpp(k,string_1,string_2):
     continue_map={}
     #continue map every start that exists is stored on the (i+1,j+1) place so if (i+1,j+1)
     # exists we can get the sequence it continues in O(log n) time
-    for event in events:
-        if event[2]==False:
-            dp[event]=0
-            continue_map[(event[0]+1,event[1]+1,event[2])]=event
 
     for event in events:
-        if event[2]==False: #if event is start
+        if event[2]==True: #if event is start
             value,parent=maxColDP.get(event[1])
             dp[event]=(k+value,parent) #O(log n) time
+            continue_map[(event[0]+1,event[1]+1,event[2])]=event
         else: #if event is end
-            p=(event[0]-k,event[1]-k,False) #find event start
+            p=(event[0]-k,event[1]-k,True) #find event start
             g=continue_map.get(p) #find the sequence it continues
             if g!=None:
                 #update if continues
-                dp[p]=(dp[g][0]+1,g)
+                if dp[g][0]+1>dp[p][0]:
+                    dp[p]=(dp[g][0]+1,g)
             #update the Fenwick tree with the longest match
             maxColDP.update(event[1],dp[p][0],p)
 
     #path reconstruction
     maximum_length=0
-    child_first=(0,0,False)
+    child_first=(0,0,True)
     keys=[key for key in dp.keys()]
     keys.sort()
     for child in keys:
@@ -44,15 +42,15 @@ def LCSkpp(k,string_1,string_2):
     path=[(child_first[0],child_first[1])]
     child=child_first
 
-    parent=(0,0,False)
+    parent=(0,0,True)
     if maximum_length==0:
         return
     while(True):
         v,parent=dp[child]
-        if (parent==(-1,-1,False)):
+        if (parent==(-1,-1,True)):
             break
         #path.append((parent[0],parent[1]))
-        if (parent==(0,0,False)):
+        if (parent==(0,0,True)):
             break
         path.append((parent[0],parent[1]))
 

@@ -39,8 +39,8 @@ def MatchPairs(string_1,string_2,k):
     print (b,k,mask)
 
     #calculate the hash for the first k characters
-    h=r_hash(0,characters[string_1[0]],b,k,mask)
-    for i in range(1,k):
+    h=0
+    for i in range(0,k):
         h=r_hash(h,characters[string_1[i]],b,k,mask)
     if h not in table:
         table[h]=[]
@@ -53,20 +53,21 @@ def MatchPairs(string_1,string_2,k):
         table[h].append(i-k+1)
 
     #calculate the hash for the first k characters
-    h=r_hash(0,characters[string_2[0]],b,k,mask)
-    for i in range(1,k):
+    h=0
+    for i in range(0,k):
         h=r_hash(h,characters[string_2[i]],b,k,mask)
     if h in table:
-        pairs.extend([(i,0,False) for i in table[h]])
+        pairs.extend([(i,0,True) for i in table[h]])
     for j in range(k,len(string_2)):
         #for every new character update the hash
         h=r_hash(h,characters[string_2[j]],b,k,mask)
         if h not in table:
             continue
-        pairs.extend([(i,j-k+1,False) for i in table[h]])
+        pairs.extend([(i,j-k+1,True) for i in table[h]])
 
     r=len(pairs)
-    pairs_e=[(i+k,j+k,True) for i,j,_ in pairs]
+    print (r)
+    pairs_e=[(i+k,j+k,False) for i,j,_ in pairs]
     pairs.extend(pairs_e)
     pairs.sort()
 
