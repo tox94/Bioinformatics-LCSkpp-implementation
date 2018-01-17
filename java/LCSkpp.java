@@ -9,7 +9,7 @@ import java.util.Collections;
 import java.util.HashMap;
 
 public class LCSkpp {
-	
+
 	// private variable that store the longest found match
 	private int maxLen;
 	// other helper private variables
@@ -23,7 +23,7 @@ public class LCSkpp {
 		// a FenwickTree variable that is used for fast calculation of the maxRange query in range [0,j]
 		FenwickTree maxColDP = new FenwickTree(n);
 		MatchPairs mp = new MatchPairs(k, x, y);
-		// An ArrayList of all matched substring Pairs 
+		// An ArrayList of all matched substring Pairs
 		ArrayList<Pair> events = mp.getPairs();
 		// A HashMap for storing all the Pairs along with their lengths
 		HashMap<Pair, Node> dp = new HashMap<Pair, Node>();
@@ -116,22 +116,22 @@ public class LCSkpp {
 
 		// Write the results of the algorithm to the output file
 		try {
-			File file = new File("output.txt");
+			File file = new File("java_output.txt");
 
 			FileWriter fw = new FileWriter(file);
-			fw.write(s1m.length());
-			fw.write("\n");
-			fw.write(x);
-			fw.write(s1m);
-			fw.write("\n");
-			fw.write(y);
-			fw.write(s2m);
-			fw.write("\n");
-			fw.write(test1m.length());
-			fw.write(test1m);
-			fw.write(test2m);
-			fw.write(String.valueOf(test1m.equals(test2m)));
-			fw.write("\n");
+			//fw.write(s1m.length());
+			//fw.write("\n");
+			//fw.write(x);
+			//fw.write(s1m);
+			//fw.write("\n");
+			//fw.write(y);
+			//fw.write(s2m);
+			//fw.write("\n");
+			//fw.write(test1m.length());
+			fw.write(test1m+"\n\n");
+			//fw.write(test2m);
+			//fw.write(String.valueOf(test1m.equals(test2m)));
+			fw.write(this.maxLen+"\n");
 			fw.close();
 		} catch (IOException e) {
 			System.out.println("Output file error.");

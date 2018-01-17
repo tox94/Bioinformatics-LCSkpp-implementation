@@ -8,4 +8,4 @@
 
 ## Usage:
 Run main program passing input file and k parametar
-- java main k input.txt
+- java main <input.txt> <k>

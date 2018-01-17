@@ -16,15 +16,14 @@ public class Main {
 			return;
 		}
 
-		int k = Integer.parseInt(args[1]);
-		System.out.println(k);
+		int k = Integer.parseInt(args[2]);
 		//int k = 1;
 		BufferedReader reader;
 		String x = "";
 		String y = "";
 		// read the two strings that will be compared
 		try {
-			reader = new BufferedReader(new FileReader(args[2]));
+			reader = new BufferedReader(new FileReader(args[1]));
 			//reader = new BufferedReader(new FileReader("fs.txt"));
 			x = reader.readLine();
 			y = reader.readLine();
@@ -35,6 +34,6 @@ public class Main {
 		}
 		LCSkpp l = new LCSkpp(k, x, y);
 		int maxLen = l.getLCSkpp();
-		System.out.println("Najveca duljina: " + maxLen);
+		//System.out.println("Najveca duljina: " + maxLen);
 	}
 }
