@@ -247,10 +247,6 @@ int lcskpp(char* a, char* b, const int k, char** reconstructed) {
 
     FenwickMax dpColMax;
     FenwickMax_new(&dpColMax, n);
-<<<<<<< HEAD
-=======
-
->>>>>>> b34d4e1ec828e86550d4b074ae215224d77bfa63
     int i;
     for(i=0; i<(numMatches*2); i++) {
         event_t event = events[i];
