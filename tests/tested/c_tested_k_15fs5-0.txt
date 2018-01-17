@@ -1,8 +1,8 @@
 	Command being timed: "../c/main test_sequences/fs5-0.txt 15"
-	User time (seconds): 1.09
-	System time (seconds): 0.01
+	User time (seconds): 1.03
+	System time (seconds): 0.02
 	Percent of CPU this job got: 99%
-	Elapsed (wall clock) time (h:mm:ss or m:ss): 0:01.11
+	Elapsed (wall clock) time (h:mm:ss or m:ss): 0:01.05
 	Average shared text size (kbytes): 0
 	Average unshared data size (kbytes): 0
 	Average stack size (kbytes): 0
@@ -12,7 +12,7 @@
 	Major (requiring I/O) page faults: 0
 	Minor (reclaiming a frame) page faults: 6265
 	Voluntary context switches: 1
-	Involuntary context switches: 158
+	Involuntary context switches: 8
 	Swaps: 0
 	File system inputs: 0
 	File system outputs: 0
