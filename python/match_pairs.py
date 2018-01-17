@@ -36,6 +36,7 @@ def MatchPairs(string_1,string_2,k):
     # example: for 3 bits per code and 3 characters in codeword
     # we need 3*3=9 bits 2*9-1=511 = 00111111111(2)
     mask=2**(b*k)-1
+    print (b,k,mask)
 
     #calculate the hash for the first k characters
     h=r_hash(0,characters[string_1[0]],b,k,mask)

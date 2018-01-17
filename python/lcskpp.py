@@ -83,13 +83,14 @@ def LCSkpp(k,string_1,string_2):
     s1_m+="-"*(len(string_1)-len(s1_m))
     s2_m+="-"*(len(string_2)-len(s2_m))
     f=open("py_output.txt","w")
-    f.write(string_1+"\n")
-    f.write(s1_m+"\n\n")
+    #f.write(string_1+"\n")
+    #f.write(s1_m+"\n\n")
 
-    f.write(string_2+"\n")
-    f.write(s2_m+"\n\n")
+    #f.write(string_2+"\n")
+    #f.write(s2_m+"\n\n")
 
     f.write(test_s1+"\n\n")
+    #f.write(str(len(test_s1))+"\n\n")
 
     f.write(str(maximum_length)+"\n")
 

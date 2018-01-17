@@ -4,17 +4,18 @@ import java.io.FileReader;
 import java.io.IOException;
 
 public class Main {
-	
-	
+
+
 	public static void main(String[] args) throws IOException {
-		
+
 		int cnt = args.length;
 		if(cnt != 3) {
 			System.out.println("Required 1 file with 2 sequences and k value");
 			return;
 		}
-		
+
 		int k = Integer.parseInt(args[1]);
+		System.out.println(k);
 		//int k = 1;
 		BufferedReader reader;
 		String x = "";
