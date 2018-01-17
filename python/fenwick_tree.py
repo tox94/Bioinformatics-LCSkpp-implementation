@@ -15,11 +15,11 @@ class Fenwick_tree(object):
         p_r=(-1,-1,True)
         while(i>0):
             value,p=self.f_tree[i]
-            if value>result:
+            if value>result: #if value>result take this index
                 result=value
                 p_r=p
             i-=(i&-i)
-            #we calculate the next index by removing the most significant bit
+            #we calculate the next index by removing the least significant one
         return result,p_r
 
     def update(self,i,value_update,p):
@@ -28,9 +28,10 @@ class Fenwick_tree(object):
         i+=1
         while(i<self.length):
             value,_=self.f_tree[i]
-            if value<=value_update:
+            if value<=value_update: #if value to update is greater then update with the new value and parent
                 self.f_tree[i]=(value_update,p)
             i+=(i&-i)
+            #we calculate the next index by adding the least significant one
 
 if __name__ == '__main__':
     #tests for the Fenwick tree structure
