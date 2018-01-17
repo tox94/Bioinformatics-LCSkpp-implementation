@@ -8,6 +8,7 @@
 #include <unordered_map>
 #include <tuple>
 #include <algorithm>
+#include <iostream>
 
 #include "LCSkpp.h"
 #include "FenwickMaxTree.h"
@@ -19,11 +20,13 @@ std::unordered_map<char,uint8_t> alphabet(std::string& a, std::string& b) {
     size_t size = 0;
     std::unordered_map<char, uint8_t> ret ;
 
-    for(size_t i = 0; i<a.size(); i++) {
+    int m=a.size();
+    for(size_t i = 0; i<m; i++) {
         if (ret.find(a[i])==ret.end())
             ret[a[i]]=size++;
     }
-    for(size_t i = 0; i<b.size(); i++) {
+    int n = b.size();
+    for(size_t i = 0; i<n; i++) {
         if (ret.find(b[i])==ret.end())
             ret[b[i]]=size++;
     }
@@ -51,7 +54,8 @@ std::vector<std::tuple<int,int,bool>>* get_events(
         hash %= mod;                            //calculating prefix of the first substring
     }
 
-    for(int i=k-1; i<a.size(); i++) {
+    int m=a.size();
+    for(int i=k-1; i<m; i++) {
         hash = hash*alphabet_size + code[a[i]];
         hash %= mod;
 
@@ -67,6 +71,7 @@ std::vector<std::tuple<int,int,bool>>* get_events(
     auto events = new std::vector<std::tuple<int,int,bool>>();
 
     int count = 0;
+    int n=b.size();
     for(int i=k-1; i<b.size(); i++) {
         hash = hash*alphabet_size + code[b[i]];
         hash %= mod;

@@ -1,7 +1,7 @@
 #include <iostream>
 #include <fstream>
 #include <vector>
-
+#include <algorithm>
 #include "LCSkpp.h"
 
 using namespace std;
@@ -30,9 +30,11 @@ int main(int argc, char const *argv[]) {
     string reconstructed;
     int lcskpp_value = LCSkpp(a, b, k, reconstructed); 
     
-    cout<<lcskpp_value<<endl;
+    ofstream output("cpp_output.txt");
 
-    cout<<reconstructed<<endl;
+    output<<lcskpp_value<<endl;
+
+    output<<reconstructed<<endl;
 
     return 0;
 }

@@ -11,7 +11,8 @@ uint8_t* getAlphabet(char* a, char* b, uint8_t* size) {
     int i, pomSize=0;
     for(i=0; i<256; i++) ret[i]=255;
 
-    for(i=0; i<strlen(a); i++) {
+    int m=strlen(a);
+    for(i=0; i<m; i++) {
         if(ret[a[i]]==255) {
             ret[a[i]]=(pomSize);
             (pomSize) += 1;
@@ -19,7 +20,8 @@ uint8_t* getAlphabet(char* a, char* b, uint8_t* size) {
 
     }
 
-    for(i=0; i<strlen(b); i++) {
+    int n=strlen(b);
+    for(i=0; i<n; i++) {
         if(ret[b[i]]==255) {
             ret[b[i]]=(pomSize);
             pomSize += 1;
@@ -29,7 +31,7 @@ uint8_t* getAlphabet(char* a, char* b, uint8_t* size) {
     return ret;
 }
 
-
+//event sort
 int compare(const void *e1, const void *e2) {
     event_t *s1 = (event_t *)e1;
     event_t *s2 = (event_t *)e2;
@@ -65,12 +67,15 @@ void getMatches(char *a, char *b, int k, event_t **events_p, MapHash_t** matches
     Bucket_t *aMap = NULL;
     int i;
     uint64_t size = AlphabetSize;
+
+    //mod for rolling hash
+    //AlphabetSize ^ k number of substrings
+    // should be lower then 2^64 
     if(AlphabetSize == 4) {
         mod = mod<<(2*k);
     } else {
         for(i=0; i<k; i++){ 
             mod = mod * size;
-            printf("MOD:::%d\n",mod);
         }
     }
     
@@ -78,19 +83,16 @@ void getMatches(char *a, char *b, int k, event_t **events_p, MapHash_t** matches
         hash = hash*AlphabetSize + alphabet[a[i]];
         hash %= mod;                            //calculating prefix of the first substring
     }
-    printf("PASSSEEEEED\n");
-    printf("size:%d\n", AlphabetSize);
-    printf("k:%d\n",k);
-    printf("mod:%d\n",mod);
-    printf("sizeof(uint64):%d\n",sizeof(uint64_t));
+
     Bucket_t *s;
     int* index;
-    for(i=k-1; i<strlen(a); i++) {
+    int m=strlen(a);
+    for(i=k-1; i<m; i++) {
         hash = hash*AlphabetSize + alphabet[a[i]];
         hash %= mod;
         //HASH_FIND_INT(aMap, &hash, s);
         HASH_FIND(hh, aMap, &hash, sizeof(uint64_t), s);
-        if (s==NULL) {
+        if (s==NULL) { //adding bucket 
             s = (Bucket_t*)malloc(sizeof(Bucket_t));
             vector_init(&(s->v));
             s->key = hash;
@@ -98,7 +100,7 @@ void getMatches(char *a, char *b, int k, event_t **events_p, MapHash_t** matches
             HASH_ADD(hh, aMap, key, sizeof(uint64_t), s);
         }
         index = (int *) malloc(sizeof(int));
-        *index = i-k+1;
+        *index = i-k+1; //start of substring should be added
         vector_add(&(s->v),index);
     }
 
@@ -107,29 +109,25 @@ void getMatches(char *a, char *b, int k, event_t **events_p, MapHash_t** matches
         hash = hash*AlphabetSize + alphabet[b[i]];
         hash %= mod;                            //calculating prefix of the first substring
     }
-    printf("PASSED A AND B START\n");
+
     *numMatches = 0;
     MapHash_t *matches = NULL;
-    for(i=k-1; i<strlen(b); i++) {
+    int n=strlen(b);
+    for(i=k-1; i<n; i++) {
         hash = hash*AlphabetSize + alphabet[b[i]];
         hash %= mod;
         //HASH_FIND_INT(aMap, &hash, s);
         HASH_FIND(hh, aMap, &hash, sizeof(uint64_t), s);
-        if (s==NULL) {
+        if (s==NULL) { //substring doesnt exist in first string
             continue;
         } else {
             int j;
-            for (j = 0; j < vector_count(&(s->v)); j++) {
-                printf("i:%d\n",j);
-                printf("s->v:%p\n",&(s->v));
+            int vec_size = vector_count(&(s->v));
+            for (j = 0; j < vec_size; j++) {
                 *numMatches += 1;
                 int a_i = *((int*) vector_get(&(s->v),j));
-                printf("a_i:%d\n", a_i);
-                printf("nummatches:%d\n",*numMatches);
-                printf("EVENT POINT %p\n",events);
                 events = (event_t *) realloc(events, 2*(*numMatches)*sizeof(event_t));
-                printf("EVENT POINT %p\n",events);
-                if(events != NULL) {
+                if(events != NULL) { //adding start and end indices in the event list
                     events[(*numMatches)*2-2].i=a_i;
                     events[(*numMatches)*2-2].j=i-k+1;
                     events[(*numMatches)*2-2].start=true;
@@ -139,18 +137,15 @@ void getMatches(char *a, char *b, int k, event_t **events_p, MapHash_t** matches
                 } else {
                     printf("Problem.\n");
                 }
-                printf("PRE\n");
                 MapHash_t* newMatch = (MapHash_t *)malloc(sizeof(MapHash_t));
                 //memset(newMatch, 0, sizeof(MapHash_t));
-                printf("AFT\n");
                 (newMatch->key).first=a_i;
                 (newMatch->key).second=i-k+1;
-                (newMatch->index)=(*numMatches)-1;
+                (newMatch->index)=(*numMatches)-1; //matchPair index for searching through arrays
                 HASH_ADD(hh, matches, key, sizeof(pair), newMatch);
             }
         }
     }
-    printf("BEFORE SORT\n");
     qsort(events, (*numMatches)*2, sizeof(event_t), compare);
     *events_p = events;
     *matches_p = matches;
@@ -158,6 +153,7 @@ void getMatches(char *a, char *b, int k, event_t **events_p, MapHash_t** matches
     return;
 }
 
+//concatenate strings
 char* stradd(const char* a, const char* b){
     size_t len = strlen(a) + strlen(b);
     char *ret = (char*)malloc(len * sizeof(char) + 1);
@@ -193,7 +189,7 @@ void reconstruct(char* a, char* b, int const k, int *prev_index, pair* indices,
         if (index == -1) {
             break;
         }
-        i_prev = indices[index].first;
+        i_prev = indices[index].first; //traceback list of origin of the value
     }
 
     *reconstructed = ret;
@@ -206,6 +202,8 @@ int lcskpp(char* a, char* b, const int k, char** reconstructed) {
     int numMatches;
 
     getMatches(a,b,k,events_p,matches_p,&numMatches);
+
+    //no matches or k too big
     if ((numMatches)==0) {
         char* recon = (char *) malloc(sizeof(char));
         *recon = '\0';
@@ -215,21 +213,6 @@ int lcskpp(char* a, char* b, const int k, char** reconstructed) {
     event_t* events = *events_p;
     MapHash_t* matches = *matches_p;
 
-    /*
-    for(int i=0; i<numMatches; i++) {
-        pair matchIndex, matchIndexPrev;
-        matchIndex.first = 0;
-        matchIndex.second = 0;
-        matchIndexPrev.first = 0;
-        matchIndexPrev.second = 0;
-        MapHash_t *p,*pPrev,pom;
-        pom.key.first=0;
-        pom.key.second=0;
-        HASH_FIND(hh, matches, &matchIndex, sizeof(pair), p);
-        HASH_FIND(hh, matches, &matchIndexPrev, sizeof(pair), pPrev);
-        printf("p:%d\n", p->index);
-
-    }*/
     int *dp;
     dp = (int *) malloc(sizeof(int)*numMatches);
     memset(dp , 0, sizeof(int)*numMatches);
@@ -248,37 +231,37 @@ int lcskpp(char* a, char* b, const int k, char** reconstructed) {
     FenwickMax dpColMax;
     FenwickMax_new(&dpColMax, n);
     int i;
-    for(i=0; i<(numMatches*2); i++) {
+    int eventSize = numMatches*2;
+    for(i=0; i<eventSize; i++) {
         event_t event = events[i];
         int i = event.i;
         int j = event.j;
         bool start = event.start;
-        //printf("i j start: %d %d %d\n",i,j,start);
 
         if (start) {
             pair matchIndex;
             matchIndex.first = i;
             matchIndex.second = j;
-            pair maxCol = FenwickMax_get(&dpColMax, j);
+            pair maxCol = FenwickMax_get(&dpColMax, j); // searching max of left top corner of the map
             MapHash_t *p;
             HASH_FIND(hh, matches, &matchIndex, sizeof(pair), p);
-            dp[p->index] = maxCol.first + k;
-            //printf("maxCol+k:%d\n",maxCol.first + k);
+            dp[p->index] = maxCol.first + k; // current maximum sequence is with this substring longer for k
+
             prev_index[p->index] = maxCol.second;
             indices[p->index].first = i;
             indices[p->index].second = j;
         } else {
             pair matchIndex, matchIndexPrev;
-            matchIndex.first = i-k;
+            matchIndex.first = i-k; //start of substring
             matchIndex.second = j-k;
-            matchIndexPrev.first = i-k-1;
+            matchIndexPrev.first = i-k-1;  //if substring continues it is one before on the same diagonal
             matchIndexPrev.second = j-k-1;
             MapHash_t *p,*pPrev;
             HASH_FIND(hh, matches, &matchIndex, sizeof(pair), p);
             HASH_FIND(hh, matches, &matchIndexPrev, sizeof(pair), pPrev);
-            if (pPrev != NULL) {
-                if((dp[pPrev->index]+1)> dp[p->index]) {
-                    dp[p->index] = dp[pPrev->index]+1;
+            if (pPrev != NULL) { 
+                if((dp[pPrev->index]+1)> dp[p->index]) { //current value can still be bigger
+                    dp[p->index] = dp[pPrev->index]+1;   // (if adding to preceding substring)
                     prev_index[p->index] = pPrev->index;
                 }
             }
@@ -286,7 +269,7 @@ int lcskpp(char* a, char* b, const int k, char** reconstructed) {
             pair cur;
             cur.first = dp[p->index];
             cur.second = p->index;
-            FenwickMax_set(&dpColMax,j, cur);
+            FenwickMax_set(&dpColMax,j, cur); // updating left top area
 
             maxDp = pairMax(maxDp, cur);
         }
