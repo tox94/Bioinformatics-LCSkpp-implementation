@@ -57,7 +57,7 @@ int compare(const void *e1, const void *e2) {
 
 void getMatches(char *a, char *b, int k, event_t **events_p, MapHash_t** matches_p, int* numMatches) {
     uint8_t AlphabetSize;
-    event_t * events = *events_p;
+    event_t * events = NULL;
     uint8_t* alphabet = getAlphabet(a,b, &AlphabetSize);
     uint64_t mod = 1;
     uint64_t hash = 0;
