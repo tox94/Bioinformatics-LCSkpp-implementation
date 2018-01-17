@@ -4,6 +4,8 @@ from os.path import isfile, join
 projectDir = "D:/FER/Diplomski/Isem/Bioinformatika/Konačan projekt/Bioinformatics-LCSkpp-implementation/tests/tested"
 onlyfiles = [f for f in listdir(projectDir) if isfile(join(projectDir, f))]
 
+outFile = open("C:/Users/Toni/Desktop/data.txt", "w+")
+
 exp2 = [];
 exp3 = [];
 exp4 = [];
@@ -16,7 +18,7 @@ for x in onlyfiles:
     compl = lines[3][4:5];
     k = lines[3][0:2]
     num = lines[3][-5:-4];
-    
+
     file = open(projectDir + "/" + x, "r");
     text = file.readlines()
     if (len(text) > 5):
@@ -34,27 +36,19 @@ for x in onlyfiles:
         elif(compl == "6"):
             exp6.append(lang + ":" + k + "," + num + "," + time + "," + memory)
 
-print("Kompl:2")
-print("--------------------------")
 for entry in exp2:
-    print(entry)
+    outFile.write(entry + "\n")
 
-print("Kompl:3")
-print("--------------------------")
 for entry in exp3:
-    print(entry)
+    outFile.write(entry + "\n")
 
-print("Kompl:4")
-print("--------------------------")
 for entry in exp4:
-    print(entry)
+    outFile.write(entry + "\n")
 
-print("Kompl:5")
-print("--------------------------")
 for entry in exp5:
-    print(entry)
+    outFile.write(entry + "\n")
 
-print("Kompl:6")
-print("--------------------------")
 for entry in exp6:
-    print(entry)
+    outFile.write(entry + "\n")
+
+outFile.close()
