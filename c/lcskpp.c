@@ -64,7 +64,6 @@ void getMatches(char *a, char *b, int k, event_t **events_p, MapHash_t** matches
 
     Bucket_t *aMap = NULL;
     int i;
-<<<<<<< HEAD
     uint64_t size = AlphabetSize;
     if(AlphabetSize == 4) {
         mod = mod<<(2*k);
@@ -74,23 +73,16 @@ void getMatches(char *a, char *b, int k, event_t **events_p, MapHash_t** matches
             printf("MOD:::%d\n",mod);
         }
     }
-=======
-    for(i=0; i<k; i++) mod *= AlphabetSize;
-
->>>>>>> b34d4e1ec828e86550d4b074ae215224d77bfa63
+    
     for(i=0; i<k-1; i++) {
         hash = hash*AlphabetSize + alphabet[a[i]];
         hash %= mod;                            //calculating prefix of the first substring
     }
-<<<<<<< HEAD
     printf("PASSSEEEEED\n");
     printf("size:%d\n", AlphabetSize);
     printf("k:%d\n",k);
     printf("mod:%d\n",mod);
     printf("sizeof(uint64):%d\n",sizeof(uint64_t));
-=======
-
->>>>>>> b34d4e1ec828e86550d4b074ae215224d77bfa63
     Bucket_t *s;
     int* index;
     for(i=k-1; i<strlen(a); i++) {
