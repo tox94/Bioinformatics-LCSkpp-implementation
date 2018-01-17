@@ -144,7 +144,7 @@ void reconstruct(char* a, char* b, int const k, int *prev_index, pair* indices,
     int i=i_prev +k;
     char * ret = (char*)malloc(sizeof(char));
     *ret = '\0';
-    while(1) {
+    while(i_prev != -1) {
         if(i-i_prev<=k) {
             char *buff;
             buff = (char *) malloc(sizeof(char)*(k+1));
@@ -177,7 +177,17 @@ int lcskpp(char* a, char* b, const int k, char** reconstructed) {
     int numMatches;
 
     getMatches(a,b,k,events_p,matches_p,&numMatches);
+<<<<<<< HEAD
 
+=======
+    
+    if ((numMatches)==0) {
+        char* recon = (char *) malloc(sizeof(char));
+        *recon = '\0';
+        *reconstructed = recon;
+        return 0;
+    }
+>>>>>>> db7f0549cc2cffdfa777fbe6a214cdb72fef9e45
     event_t* events = *events_p;
     MapHash_t* matches = *matches_p;
 
