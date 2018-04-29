@@ -1,0 +1,14 @@
+../c/main fs.txt 5
+
+28
+CGCGA-GCCAACG-AGCCAC-GGCAC-GACCA
+
+
+
+../cpp/main fs.txt 5
+
+28
+CGCGA-GCCAACG-AGCCAC-GGCAC-GACCA
+
+
+
